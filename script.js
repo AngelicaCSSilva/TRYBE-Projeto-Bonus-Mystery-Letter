@@ -3,6 +3,7 @@ const styles = ['newspaper', 'magazine1', 'magazine2'];
 const sizes = ['medium', 'big', 'reallybig'];
 const rotation = ['rotateleft', 'rotateright'];
 const inclination = ['skewleft', 'skewright'];
+const counter = document.querySelector('#carta-contador');
 
 function cleanPrevious() {
   generatedLetter.innerHTML = '';
@@ -36,6 +37,10 @@ function alternateStyle(event) {
   targetAlternate.className = getStylesToUse();
 }
 
+function countWords(letter) {
+  counter.innerText = letter.length;
+}
+
 function generateLetter() {
   const letter = getLetterInput();
   for (let words = 0; words < letter.length; words += 1) {
@@ -45,6 +50,7 @@ function generateLetter() {
     span.addEventListener('click', alternateStyle);
     generatedLetter.appendChild(span);
   }
+  countWords(letter);
 }
 
 function checkInput() {
