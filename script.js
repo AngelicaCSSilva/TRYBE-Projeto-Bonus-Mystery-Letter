@@ -1,5 +1,6 @@
+const generatedLetter = document.querySelector('#carta-gerada');
+
 function cleanPrevious() {
-  const generatedLetter = document.querySelector('#carta-gerada');
   generatedLetter.innerHTML = '';
 }
 
@@ -9,10 +10,19 @@ function getLetterInput() {
   return letter;
 }
 
+// ref.: https://stackoverflow.com/questions/10261986/how-to-detect-string-which-contains-only-spaces/50971250
+function removeEmptySpaces() {
+  const letter = document.querySelector('#carta-texto').value;
+  if (!letter.replace(/\s/g, '').length) {
+    console.log('false');
+    return false;
+  }
+  console.log('rue');
+  return true;
+}
+
 function generateLetter() {
-  cleanPrevious();
   const letter = getLetterInput();
-  const generatedLetter = document.querySelector('#carta-gerada');
   for (let words = 0; words < letter.length; words += 1) {
     const span = document.createElement('span');
     span.innerText = `${letter[words]}`;
@@ -20,9 +30,18 @@ function generateLetter() {
   }
 }
 
+function checkInput() {
+  cleanPrevious();
+  if (removeEmptySpaces()) {
+    generateLetter();
+  } else {
+    generatedLetter.innerHTML = 'Por favor, digite o conteúdo da carta.';
+  }
+}
+
 function btnGenerateLetter() {
   const btnGenerate = document.querySelector('#criar-carta');
-  btnGenerate.addEventListener('click', generateLetter);
+  btnGenerate.addEventListener('click', checkInput);
 }
 
 btnGenerateLetter();
