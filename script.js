@@ -31,12 +31,18 @@ function getStylesToUse() {
   return `${styles[rndOne]} ${sizes[rndTwo]} ${rotation[rndThree]} ${inclination[rndFour]}`;
 }
 
+function alternateStyle(event) {
+  const targetAlternate = event.target;
+  targetAlternate.className = getStylesToUse();
+}
+
 function generateLetter() {
   const letter = getLetterInput();
   for (let words = 0; words < letter.length; words += 1) {
     const span = document.createElement('span');
     span.innerText = `${letter[words]}`;
     span.className = getStylesToUse();
+    span.addEventListener('click', alternateStyle);
     generatedLetter.appendChild(span);
   }
 }
