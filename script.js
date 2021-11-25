@@ -1,4 +1,8 @@
 const generatedLetter = document.querySelector('#carta-gerada');
+const styles = ['newspaper', 'magazine1', 'magazine2'];
+const sizes = ['medium', 'big', 'reallybig'];
+const rotation = ['rotateleft', 'rotateright'];
+const inclination = ['skewleft', 'skewright'];
 
 function cleanPrevious() {
   generatedLetter.innerHTML = '';
@@ -14,11 +18,17 @@ function getLetterInput() {
 function removeEmptySpaces() {
   const letter = document.querySelector('#carta-texto').value;
   if (!letter.replace(/\s/g, '').length) {
-    console.log('false');
     return false;
   }
-  console.log('rue');
   return true;
+}
+
+function getStylesToUse() {
+  const rndOne = Math.floor(Math.random() * 3);
+  const rndTwo = Math.floor(Math.random() * 3);
+  const rndThree = Math.floor(Math.random() * 2);
+  const rndFour = Math.floor(Math.random() * 2);
+  return `${styles[rndOne]} ${sizes[rndTwo]} ${rotation[rndThree]} ${inclination[rndFour]}`;
 }
 
 function generateLetter() {
@@ -26,6 +36,7 @@ function generateLetter() {
   for (let words = 0; words < letter.length; words += 1) {
     const span = document.createElement('span');
     span.innerText = `${letter[words]}`;
+    span.className = getStylesToUse();
     generatedLetter.appendChild(span);
   }
 }
